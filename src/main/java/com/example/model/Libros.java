@@ -14,7 +14,7 @@ import javax.persistence.Id;
 public class Libros {
 
     @Id
-    private int id;
+    private Long id;
     @Column
     private String titulo;
     @Column
