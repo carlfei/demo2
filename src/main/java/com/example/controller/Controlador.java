@@ -14,13 +14,30 @@ import java.util.stream.Collectors;
 public class Controlador {
     @Autowired
     Biblioteca biblioteca;
+
+    @Autowired
+    Libros lib;
+
     List<Libros> libros;
 
     @GetMapping("/list/{id}")
     public List<Libros> listar(@PathVariable(value = "id") Long id){
 
-        List<Libros> collect = (biblioteca.findById(id)).stream().collect(Collectors.toList());
-        return collect;
+        return (biblioteca.findById(id)).stream().collect(Collectors.toList());
+
+    }
+    @GetMapping("/listAdd/{id}/{titulo}/{autor}")
+    public List<Libros> anyadir(@PathVariable(value = "id") Long id,
+                               @PathVariable(value = "titulo") String titulo,
+                               @PathVariable(value = "autor") String autor){
+
+                             biblioteca.save(lib.getId());
+
+        //libros.addAll(id,titulo,autor);
+                        //libros.get(0).setId();
+//                    biblioteca.saveAll(id,titulo,autor);
+       // biblioteca.save();
+        return (biblioteca.findById(id)).stream().collect(Collectors.toList());
 
     }
 
