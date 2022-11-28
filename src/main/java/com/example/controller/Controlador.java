@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,10 +16,9 @@ public class Controlador {
     @Autowired
     Biblioteca biblioteca;
 
-    @Autowired
-    Libros lib;
 
-    List<Libros> libros;
+
+    List<Libros> libros = new ArrayList<>();
 
     @GetMapping("/list/{id}")
     public List<Libros> listar(@PathVariable(value = "id") Long id){
@@ -30,14 +30,13 @@ public class Controlador {
     public List<Libros> anyadir(@PathVariable(value = "id") Long id,
                                @PathVariable(value = "titulo") String titulo,
                                @PathVariable(value = "autor") String autor){
+                             libros.add(new Libros(id,titulo,autor));
+                             biblioteca.saveAll(libros);
 
-                             biblioteca.save(lib.getId());
 
-        //libros.addAll(id,titulo,autor);
-                        //libros.get(0).setId();
-//                    biblioteca.saveAll(id,titulo,autor);
-       // biblioteca.save();
-        return (biblioteca.findById(id)).stream().collect(Collectors.toList());
+        return libros
+                .stream()
+                .collect(Collectors.toList());
 
     }
 
